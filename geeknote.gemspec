@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Geeknote::VERSION
   spec.authors       = ["Ma Lucheng"]
   spec.email         = ["mlc880926@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{geeknote ruby clone}
+  spec.summary       = %q{geeknote ruby clone}
   spec.homepage      = ""
   spec.license       = "MIT"
 
