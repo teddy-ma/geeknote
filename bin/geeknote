@@ -67,18 +67,61 @@ command :note do |c|
   c.action do |global_options,options,args|
     puts "note command ran"
   end
+
+  c.command :create do |note| 
+    note.action do 
+      puts "create note"
+    end
+  end
+
+  c.command :find do |note|
+    note.action do 
+      puts "find note"
+    end
+  end
+
+  c.command :show do |note|
+    note.action do 
+      puts "Show note"
+    end
+  end
+
+  c.command :edit do |note|
+    note.action do 
+      puts "Edit note"
+    end
+  end
+
+  c.command :remove do |note|
+    note.action do 
+      puts "Remove note"
+    end
+  end
 end
 
 desc 'Describe notebook here'
 arg_name 'Describe arguments to notebook here'
 command :notebook do |c|
-  c.command :create do |nb| 
+  c.action do |global_options,options,args|
+    puts "notebook command ran"
+  end
+
+  c.command :list do |nb|
+    nb.action do 
+      puts "list note book"
+    end
+  end
+
+  c.command :create do |nb|
     nb.action do 
       puts "create note book"
     end
   end
-  c.action do |global_options,options,args|
-    puts "notebook command ran"
+
+  c.command :eidt do |nb|
+    nb.action do 
+      puts "eidt note book"
+    end
   end
 end
 
