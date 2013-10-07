@@ -1,5 +1,5 @@
 require "geeknote/version"
 
-module Geeknote
+module GeekNote
   # Your code goes here...
 end

@@ -1,6 +1,6 @@
 # Geeknote
 
-TODO: Write a gem description
+yet another evernote command line client
 
 ## Installation
 
@@ -18,7 +18,9 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    geeknote abc 
+    #=> abc
+    :)
 
 ## Contributing
 

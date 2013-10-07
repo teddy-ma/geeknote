@@ -5,7 +5,7 @@ require 'geeknote/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "geeknote"
-  spec.version       = Geeknote::VERSION
+  spec.version       = GeekNote::VERSION
   spec.authors       = ["Ma Lucheng"]
   spec.email         = ["mlc880926@gmail.com"]
   spec.description   = %q{geeknote ruby clone}
