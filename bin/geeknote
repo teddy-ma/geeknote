@@ -1,5 +1,114 @@
 #!/usr/bin/env ruby
-# encoding: UTF-8
-require 'geeknote/cli'
+require 'gli'
+begin # XXX: Remove this begin/rescue before distributing your app
+require 'geeknote'
+rescue LoadError
+  STDERR.puts "In development, you need to use `bundle exec bin/geeknote` to run your app"
+  STDERR.puts "At install-time, RubyGems will make sure lib, etc. are in the load path"
+  STDERR.puts "Feel free to remove this message from bin/geeknote now"
+  exit 64
+end
 
-GeekNote::CLI.start(*ARGV)
+include GLI::App
+
+program_desc 'yet another evernote command line client'
+
+version GeekNote::VERSION
+
+desc 'Describe some switch here'
+switch [:s,:switch]
+
+desc 'Describe some flag here'
+default_value 'the default'
+arg_name 'The name of the argument'
+flag [:f,:flagname]
+
+desc 'login evernote'
+arg_name ''
+command :login do |c|
+  c.desc '-u username'
+  c.flag :u
+
+  c.desc '-p password'
+  c.default_value 'default'
+  c.flag :p
+  c.action do |global_options,options,args|
+
+    # Your command logic here
+     
+    # If you have any errors, just raise them
+    # raise "that command made no sense"
+
+    puts "login command ran"
+  end
+end
+
+desc 'logout your evernote account'
+arg_name ''
+command :logout do |c|
+  c.action do |global_options,options,args|
+    puts "logout command ran"
+  end
+end
+
+desc 'some settings'
+arg_name ''
+command :settings do |c|
+  c.desc 'your favorite editor name'
+  c.flag :editor
+  c.action do |global_options,options,args|
+    puts "settings command ran"
+  end
+end
+
+desc 'Describe note here'
+arg_name 'Describe arguments to note here'
+command :note do |c|
+  c.action do |global_options,options,args|
+    puts "note command ran"
+  end
+end
+
+desc 'Describe notebook here'
+arg_name 'Describe arguments to notebook here'
+command :notebook do |c|
+  c.command :create do |nb| 
+    nb.action do 
+      puts "create note book"
+    end
+  end
+  c.action do |global_options,options,args|
+    puts "notebook command ran"
+  end
+end
+
+desc 'Describe tag here'
+arg_name 'Describe arguments to tag here'
+command :tag do |c|
+  c.action do |global_options,options,args|
+    puts "tag command ran"
+  end
+end
+
+pre do |global,command,options,args|
+  # Pre logic here
+  # Return true to proceed; false to abort and not call the
+  # chosen command
+  # Use skips_pre before a command to skip this block
+  # on that command only
+  true
+end
+
+post do |global,command,options,args|
+  # Post logic here
+  # Use skips_post before a command to skip this
+  # block on that command only
+end
+
+on_error do |exception|
+  # Error logic here
+  # return false to skip default error handling
+  true
+end
+
+exit run(ARGV)

@@ -1,4 +1,4 @@
-# Geeknote
+# GeekNote
 
 yet another evernote command line client
 

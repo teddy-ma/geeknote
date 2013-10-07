@@ -1,23 +1,27 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'geeknote/version'
-
-Gem::Specification.new do |spec|
-  spec.name          = "geeknote"
-  spec.version       = GeekNote::VERSION
-  spec.authors       = ["Ma Lucheng"]
-  spec.email         = ["mlc880926@gmail.com"]
-  spec.description   = %q{geeknote ruby clone}
-  spec.summary       = %q{geeknote ruby clone}
-  spec.homepage      = ""
-  spec.license       = "MIT"
-
-  spec.files         = `git ls-files`.split($/)
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
-  spec.require_paths = ["lib"]
-
-  spec.add_development_dependency "bundler", "~> 1.3"
-  spec.add_development_dependency "rake"
+# Ensure we require the local version and not one we might have installed already
+require File.join([File.dirname(__FILE__),'lib','geeknote','version.rb'])
+spec = Gem::Specification.new do |s| 
+  s.name = 'geeknote'
+  s.version = GeekNote::VERSION
+  s.author = ["Ma Lucheng"]
+  s.email = ["mlc880926@gmail.com"]
+  s.homepage = 'http://your.website.com'
+  s.platform = Gem::Platform::RUBY
+  s.summary = 'geeknote ruby clone'
+# Add your other files here if you make them
+  s.files = %w(
+bin/geeknote
+lib/geeknote/version.rb
+lib/geeknote.rb
+  )
+  s.require_paths << 'lib'
+  s.has_rdoc = true
+  s.extra_rdoc_files = ['README.rdoc','geeknote.rdoc']
+  s.rdoc_options << '--title' << 'geeknote' << '--main' << 'README.rdoc' << '-ri'
+  s.bindir = 'bin'
+  s.executables << 'geeknote'
+  s.add_development_dependency('rake')
+  s.add_development_dependency('rdoc')
+  s.add_development_dependency('aruba')
+  s.add_runtime_dependency('gli','2.8.0')
 end
