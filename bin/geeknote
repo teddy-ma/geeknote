@@ -66,7 +66,6 @@ arg_name 'Describe arguments to note here'
 command :note do |c|
   c.action do |global_options,options,args|
     puts "note command ran"
-    GeekNote::Client.new.list
   end
 
   c.command :create do |note| 
@@ -110,6 +109,7 @@ command :notebook do |c|
   c.command :list do |nb|
     nb.action do 
       puts "list note book"
+      GeekNote::Client.new.list_notebooks
     end
   end
 
@@ -119,9 +119,9 @@ command :notebook do |c|
     end
   end
 
-  c.command :eidt do |nb|
+  c.command :edit do |nb|
     nb.action do 
-      puts "eidt note book"
+      puts "edit note book"
     end
   end
 end
@@ -131,6 +131,13 @@ arg_name 'Describe arguments to tag here'
 command :tag do |c|
   c.action do |global_options,options,args|
     puts "tag command ran"
+  end
+
+  c.command :list do |tag|
+    tag.action do 
+      puts "tag list"
+      GeekNote::Client.new.list_tags
+    end
   end
 end
 
