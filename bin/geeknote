@@ -40,6 +40,15 @@ command :login do |c|
     # raise "that command made no sense"
 
     puts "login command ran"
+
+  end
+end
+
+desc 'whoami'
+arg_name ''
+command :whoami do |c|
+  c.action do |global_options,options,args|
+    GeekNote::Client.new.who_am_i
   end
 end
 
