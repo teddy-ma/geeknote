@@ -40,7 +40,7 @@ command :login do |c|
     # raise "that command made no sense"
 
     puts "login command ran"
-
+    GeekNote::Client.new.login
   end
 end
 

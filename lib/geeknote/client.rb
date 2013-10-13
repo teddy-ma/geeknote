@@ -1,5 +1,8 @@
 module GeekNote
   class Client
+
+    evernoteHost = "sandbox.evernote.com" #www.evernote.com for production
+
     def list_notebooks
       auth_token = "S=s1:U=840c1:E=148e577e596:C=1418dc6b999:P=1cd:A=en-devtoken:V=2:H=f597a57e759dfaba5e319931fcad97a2"
       client = EvernoteOAuth::Client.new(token: auth_token)
@@ -31,6 +34,18 @@ module GeekNote
       client = EvernoteOAuth::Client.new(token: auth_token)
       user_store = client.user_store
       p user_store.getUser.username
+    end
+
+    def login
+      auth_token = "S=s1:U=840c1:E=148e577e596:C=1418dc6b999:P=1cd:A=en-devtoken:V=2:H=f597a57e759dfaba5e319931fcad97a2"
+      client = EvernoteOAuth::Client.new(token: auth_token)
+      user_store = client.user_store
+      begin
+        ret = user_store.authenticate("malucheng","123456","mlc880926","6340835b50ea8641", false)
+      rescue
+        p $!
+        raise
+      end
     end
   end
 end
