@@ -1,31 +1,13 @@
-# GeekNote
+用于测试的用户帐号malucheng
+密码 123456
 
-yet another evernote command line client
+Detailed OAuth instructions
 
-## Installation
+You will need the following information in order to build an OAuth client (consumer) that works with Evernote:
 
-Add this line to your application's Gemfile:
-
-    gem 'geeknote'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install geeknote
-
-## Usage
-
-    geeknote abc 
-    #=> abc
-    :)
-
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+Temporary credential request URI: https://evernoteHost/oauth
+Resource owner authorization URI: https://evernoteHost/OAuth.action
+Token request URI: https://evernoteHost/oauth
+Security: HTTPS for all requests
+Supported signature methods: PLAINTEXT & HMAC-SHA1
+Supported OAuth parameter locations: HTTP Authorization header & request URI query parameters

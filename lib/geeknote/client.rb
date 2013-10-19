@@ -1,7 +1,7 @@
 module GeekNote
   class Client
 
-    evernoteHost = "sandbox.evernote.com" #www.evernote.com for production
+    @@evernoteHost = "sandbox.evernote.com" #www.evernote.com for production
 
     def list_notebooks
       auth_token = "S=s1:U=840c1:E=148e577e596:C=1418dc6b999:P=1cd:A=en-devtoken:V=2:H=f597a57e759dfaba5e319931fcad97a2"
@@ -37,8 +37,9 @@ module GeekNote
     end
 
     def login
-      # auth_token = "S=s1:U=840c1:E=148e577e596:C=1418dc6b999:P=1cd:A=en-devtoken:V=2:H=f597a57e759dfaba5e319931fcad97a2"
+      auth_token = "S=s1:U=840c1:E=148e577e596:C=1418dc6b999:P=1cd:A=en-devtoken:V=2:H=f597a57e759dfaba5e319931fcad97a2"
       # client = EvernoteOAuth::Client.new(token: auth_token)
+      client = EvernoteOAuth::Client.new(token: auth_token, consumer_key:"mlc880926-8889", consumer_secret:"a298b6c359007305", sandbox: true)
       # user_store = client.user_store
       # begin
       #   ret = user_store.authenticate("malucheng","123456","mlc880926","6340835b50ea8641", false)
@@ -46,8 +47,18 @@ module GeekNote
       #   p $!
       #   raise
       # end
+      
+      # callback_url = request.url.chomp("requesttoken").concat("callback")
+      callback_url = "http://localhost:4567/callback"
+      request_token = client.request_token(:oauth_callback => callback_url)
+      # p request_token.authorize_url 
       agent = Mechanize.new
-      page = agent.get('http://google.com/')
+      page = agent.get(request_token.authorize_url)
+      # p page
+      login_form = page.form('login_form')
+      login_form.username = 'malucheng'
+      login_form.password = '123456'
+      page = agent.submit(login_form, login_form.buttons.first)
       pp page
     end
   end
