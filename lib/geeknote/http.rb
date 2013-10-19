@@ -1,5 +1,5 @@
 module GeekNote
-  class http
+  class Http
 
   end
 end

@@ -24,5 +24,6 @@ lib/geeknote.rb
   s.add_development_dependency('rdoc')
   s.add_development_dependency('aruba')
   s.add_runtime_dependency('gli','2.8.0')
+  s.add_runtime_dependency('mechanize')
   s.add_runtime_dependency('evernote_oauth')
 end
