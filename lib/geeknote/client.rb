@@ -59,7 +59,10 @@ module GeekNote
       login_form.username = 'malucheng'
       login_form.password = '123456'
       page = agent.submit(login_form, login_form.buttons.first)
-      pp page
+      # pp page
+      oauth_authorize_form = page.form('oauth_authorize_form')
+      page = agent.submit(oauth_authorize_form, oauth_authorize_form.buttons.first)
+      # pp page
     end
   end
 end

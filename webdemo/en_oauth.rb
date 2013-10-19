@@ -98,20 +98,18 @@ end
 # Receive callback from the Evernote authorization page
 ##
 get '/callback' do
-  # unless params['oauth_verifier'] || session['request_token']
-  #   @last_error = "Content owner did not authorize the temporary credentials"
-  #   halt erb :error
-  # end
-  # session[:oauth_verifier] = params['oauth_verifier']
-  # begin
-  #   session[:access_token] = session[:request_token].get_access_token(:oauth_verifier => session[:oauth_verifier])
-  #   redirect '/list'
-  # rescue => e
-  #   @last_error = 'Error extracting access token'
-  #   erb :error
-  # end
-  p "------------ call back ============="
-  pp params
+  unless params['oauth_verifier'] || session['request_token']
+    @last_error = "Content owner did not authorize the temporary credentials"
+    halt erb :error
+  end
+  session[:oauth_verifier] = params['oauth_verifier']
+  begin
+    session[:access_token] = session[:request_token].get_access_token(:oauth_verifier => session[:oauth_verifier])
+    redirect '/list'
+  rescue => e
+    @last_error = 'Error extracting access token'
+    erb :error
+  end
 end
 
 
