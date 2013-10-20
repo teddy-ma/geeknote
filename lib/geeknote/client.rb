@@ -62,7 +62,6 @@ module GeekNote
       # pp page
       oauth_authorize_form = page.form('oauth_authorize_form')
       page = agent.submit(oauth_authorize_form, oauth_authorize_form.buttons.first)
-      pp page
       # pp page
       #error: 500 => Net::HTTPInternalServerError for http://localhost:4567/callback?oauth_token=mlc880926-8889.141D5AD4543.687474703A2F2F6C6F63616C686F73743A343536372F63616C6C6261636B.7F47659E2B6ED8BD81E8EE92998BA022&oauth_verifier=E5AC772F8563D3B644F0A990F9EF3FCF -- unhandled response
     end
