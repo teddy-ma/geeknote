@@ -78,7 +78,7 @@ command :note do |c|
   end
 
   c.command :create do |note| 
-    note.action do 
+    note.action do
       puts "create note"
     end
   end
@@ -111,6 +111,7 @@ end
 desc 'Describe notebook here'
 arg_name 'Describe arguments to notebook here'
 command :notebook do |c|
+
   c.action do |global_options,options,args|
     puts "notebook command ran"
   end
@@ -123,8 +124,18 @@ command :notebook do |c|
   end
 
   c.command :create do |nb|
-    nb.action do 
+
+    nb.desc '-t title'
+    nb.desc '-c content'
+    nb.flag :t
+    nb.flag :c
+
+    nb.action do |global_options,options,args|
       puts "create note book"
+      # puts global_options
+      puts options
+      # puts args
+      GeekNote::Client.new.create_note(options['t'], 'aa')
     end
   end
 
