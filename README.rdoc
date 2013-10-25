@@ -18,9 +18,7 @@ Or install it yourself as:
 
 ## Usage
 
-    geeknote abc 
-    #=> abc
-    :)
+if you have a evernote sandbox account, you can try geeknote login to have a test.
 
 ## Contributing
 
