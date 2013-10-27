@@ -28,18 +28,16 @@ module GeekNote
       note_store = client.note_store
       note = Evernote::EDAM::Type::Note.new
       note.title = title
-      note.content = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml2.dtd"><en-note>Hello Evernote<br/></en-note>'
+      t = Tempfile.new('phishmonger')
+      system("vim #{t.path}")
+      content = File.open(t.path).readlines.inject
+      t.unlink
+      note_content = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml2.dtd"><en-note>'+content+'<br/></en-note>'
+      note.content = note_content
       note_store.createNote(note)
     end
 
-    def call_editor  
-      t = Tempfile.new('phishmonger')
-      pp t
-      # pp ENV('EDITOR')
-      system("vim #{t.path}")
-      puts File.open(t.path).readlines
-      t.unlink
-    end
+    
 
     def list_tags
       client = EvernoteOAuth::Client.new(token: get_token, consumer_key:"mlc880926-8889", consumer_secret:"a298b6c359007305", sandbox: true)
