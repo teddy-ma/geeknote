@@ -32,6 +32,15 @@ module GeekNote
       note_store.createNote(note)
     end
 
+    def call_editor  
+      t = Tempfile.new('phishmonger')
+      pp t
+      # pp ENV('EDITOR')
+      system("vim #{t.path}")
+      puts File.open(t.path).readlines
+      t.unlink
+    end
+
     def list_tags
       client = EvernoteOAuth::Client.new(token: get_token, consumer_key:"mlc880926-8889", consumer_secret:"a298b6c359007305", sandbox: true)
       note_store = client.note_store
