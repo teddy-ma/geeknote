@@ -57,6 +57,7 @@ arg_name ''
 command :logout do |c|
   c.action do |global_options,options,args|
     puts "logout command ran"
+    GeekNote::Client.new.logout
   end
 end
 
