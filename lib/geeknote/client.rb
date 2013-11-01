@@ -2,7 +2,7 @@ module GeekNote
   class Client
 
     @@evernoteHost = "sandbox.evernote.com" #www.evernote.com for production
-    @@auth_token = "S=s1:U=840c1:E=148e577e596:C=1418dc6b999:P=1cd:A=en-devtoken:V=2:H=f597a57e759dfaba5e319931fcad97a2"
+    @@auth_token = "S=s1:U=840c1:E=148e577e596:C=1418dc6b999:P=1cd:A=en-devtoken:V=2:H=f597a57e759dfaba5e319931fcad97a2" # my developer account auth token
 
     def list_notebooks      
       client = get_client
@@ -62,7 +62,7 @@ module GeekNote
 
     def who_am_i
       auth_token = "S=s1:U=840c1:E=148e577e596:C=1418dc6b999:P=1cd:A=en-devtoken:V=2:H=f597a57e759dfaba5e319931fcad97a2"
-      client = EvernoteOAuth::Client.new(token: auth_token)
+      client = EvernoteOAuth::Client.new(token: @@auth_token)
       user_store = client.user_store
       p user_store.getUser.username
       note_store = client.note_store 
@@ -76,7 +76,6 @@ module GeekNote
       gets_password = gets.chomp()
     
       begin
-        auth_token = "S=s1:U=840c1:E=148e577e596:C=1418dc6b999:P=1cd:A=en-devtoken:V=2:H=f597a57e759dfaba5e319931fcad97a2"
         client = get_client
         callback_url = "http://javaer.me"
         request_token = client.request_token(:oauth_callback => callback_url)
