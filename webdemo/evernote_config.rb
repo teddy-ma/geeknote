@@ -11,7 +11,7 @@ require "evernote_oauth"
 # from http://dev.evernote.com/documentation/cloud/
 # OAUTH_CONSUMER_KEY = "mlc880926"
 # OAUTH_CONSUMER_SECRET = "6340835b50ea8641"
-OAUTH_CONSUMER_KEY = "mlc880926-8889"
-OAUTH_CONSUMER_SECRET = "a298b6c359007305"
+OAUTH_CONSUMER_KEY = "mlc880926-4220"
+OAUTH_CONSUMER_SECRET = "e95f2e2559cd8ce3"
 
 SANDBOX = true

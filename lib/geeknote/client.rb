@@ -5,7 +5,7 @@ module GeekNote
     @@auth_token = "S=s1:U=840c1:E=148e577e596:C=1418dc6b999:P=1cd:A=en-devtoken:V=2:H=f597a57e759dfaba5e319931fcad97a2"
 
     def list_notebooks      
-      client = EvernoteOAuth::Client.new(token: get_token, consumer_key:"mlc880926-8889", consumer_secret:"a298b6c359007305", sandbox: true)
+      client = get_client
       note_store = client.note_store
       notebooks = note_store.listNotebooks
       puts "your note books list ......"
@@ -15,7 +15,7 @@ module GeekNote
     end
 
     def create_note(title, content)
-      client = EvernoteOAuth::Client.new(token: get_token, consumer_key:"mlc880926-8889", consumer_secret:"a298b6c359007305", sandbox: true)
+      client = get_client
       note_store = client.note_store
       note = Evernote::EDAM::Type::Note.new
       note.title = title
@@ -28,10 +28,30 @@ module GeekNote
       note_store.createNote(note)
     end
 
-    
+    def find_note
+      client = get_client
+      note_store = client.note_store
+      notebooks = note_store.listNotebooks
+      defaultNotebook = notebooks.first
+      puts "your default notebook is #{defaultNotebook.guid}"
+      noteFilter = Evernote::EDAM::NoteStore::NoteFilter.new(:notebookGuid => defaultNotebook.guid)
+      begin
+      noteList = note_store.findNotes(get_token,noteFilter,0,10)
+      noteList.notes.each do |note|
+        puts note.title
+      end
+      rescue => err
+        p err
+      end
+
+ #      default_guid = Evernote::Guid(defaultNotebook.guid)
+ # puts     default_guid  
+      #list all the notes in default note book
+      # Evernote::EDAM::NoteStore::NoteFilter.new
+    end
 
     def list_tags
-      client = EvernoteOAuth::Client.new(token: get_token, consumer_key:"mlc880926-8889", consumer_secret:"a298b6c359007305", sandbox: true)
+      client = get_client
       note_store = client.note_store
       tags = note_store.listTags
       puts "your tags list ......"
@@ -57,7 +77,7 @@ module GeekNote
     
       begin
         auth_token = "S=s1:U=840c1:E=148e577e596:C=1418dc6b999:P=1cd:A=en-devtoken:V=2:H=f597a57e759dfaba5e319931fcad97a2"
-        client = EvernoteOAuth::Client.new(token: auth_token, consumer_key:"mlc880926-8889", consumer_secret:"a298b6c359007305", sandbox: true)
+        client = get_client
         callback_url = "http://javaer.me"
         request_token = client.request_token(:oauth_callback => callback_url)
       
@@ -104,6 +124,10 @@ module GeekNote
       token = file.gets
       file.close
       return token
+    end
+
+    def get_client
+      client = EvernoteOAuth::Client.new(token: get_token, consumer_key:"mlc880926-4220", consumer_secret:"e95f2e2559cd8ce3", sandbox: true)
     end
 
   end

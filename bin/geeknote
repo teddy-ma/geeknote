@@ -94,6 +94,7 @@ command :note do |c|
   c.command :find do |note|
     note.action do 
       puts "find note"
+      GeekNote::Client.new.find_note
     end
   end
 
