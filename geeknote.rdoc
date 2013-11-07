@@ -1,6 +1,8 @@
 用于测试的用户帐号malucheng
 密码 123456
 
+now use c9 as cloud ide
+
 Detailed OAuth instructions
 
 You will need the following information in order to build an OAuth client (consumer) that works with Evernote:
