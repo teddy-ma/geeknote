@@ -1,6 +1,6 @@
 module GeekNote
   class Client
-
+    
     @@evernoteHost = "sandbox.evernote.com" #www.evernote.com for production
     @@auth_token = "S=s1:U=840c1:E=148e577e596:C=1418dc6b999:P=1cd:A=en-devtoken:V=2:H=f597a57e759dfaba5e319931fcad97a2" # my developer account auth token
 
@@ -19,11 +19,12 @@ module GeekNote
       note_store = client.note_store
       note = Evernote::EDAM::Type::Note.new
       note.title = title
-      t = Tempfile.new('phishmonger')
-      system("vim #{t.path}")
+      t = Tempfile.new("geeknote#{rand(999999)}")
+      system("vim #{t.path}") #editor should be config
       content = File.open(t.path).readlines.inject
       t.unlink
       note_content = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml2.dtd"><en-note>'+content+'<br/></en-note>'
+      #content should be a template
       note.content = note_content
       note_store.createNote(note)
     end
@@ -33,21 +34,17 @@ module GeekNote
       note_store = client.note_store
       notebooks = note_store.listNotebooks
       defaultNotebook = notebooks.first
-      puts "your default notebook is #{defaultNotebook.guid}"
+      puts "your default notebook is #{defaultNotebook.name}"
       noteFilter = Evernote::EDAM::NoteStore::NoteFilter.new(:notebookGuid => defaultNotebook.guid)
       begin
-      noteList = note_store.findNotes(get_token,noteFilter,0,10)
-      noteList.notes.each do |note|
-        puts note.title
-      end
+        puts "these are notes in your default notebook ......"
+        noteList = note_store.findNotes(get_token,noteFilter,0,10)
+        noteList.notes.each do |note|
+          puts note.title
+        end
       rescue => err
         p err
       end
-
- #      default_guid = Evernote::Guid(defaultNotebook.guid)
- # puts     default_guid  
-      #list all the notes in default note book
-      # Evernote::EDAM::NoteStore::NoteFilter.new
     end
 
     def list_tags
