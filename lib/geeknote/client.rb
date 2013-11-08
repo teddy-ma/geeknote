@@ -61,9 +61,7 @@ module GeekNote
       auth_token = "S=s1:U=840c1:E=148e577e596:C=1418dc6b999:P=1cd:A=en-devtoken:V=2:H=f597a57e759dfaba5e319931fcad97a2"
       client = EvernoteOAuth::Client.new(token: @@auth_token)
       user_store = client.user_store
-      p user_store.getUser.username
-      note_store = client.note_store 
-      p note_store.findNoteCounts(auth_token, Evernote::EDAM::NoteStore::NoteFilter.new, false)
+      puts "hello,#{user_store.getUser.username}"  
     end
 
     def login

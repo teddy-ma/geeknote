@@ -20,6 +20,11 @@ Or install it yourself as:
 
 if you have a evernote sandbox account, you can try geeknote login to have a test.
 
+    $ geeknote login    # login (sendbox only now)
+    $ geeknote logout   # logout 
+    $ geeknote whoami   # in case you forgot it
+    $ geeknote list     # list your notebooks
+
 ## Contributing
 
 1. Fork it
