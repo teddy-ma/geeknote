@@ -4,6 +4,7 @@ module GeekNote
     @@evernoteHost = "sandbox.evernote.com" #www.evernote.com for production
     @@auth_token = "S=s1:U=840c1:E=148e577e596:C=1418dc6b999:P=1cd:A=en-devtoken:V=2:H=f597a57e759dfaba5e319931fcad97a2" # my developer account auth token
 
+    #列出所有的笔记本
     def list_notebooks      
       client = get_client
       note_store = client.note_store
@@ -14,6 +15,7 @@ module GeekNote
       end
     end
 
+    #创建笔记
     def create_note(title, content)
       client = get_client
       note_store = client.note_store
@@ -29,6 +31,7 @@ module GeekNote
       note_store.createNote(note)
     end
 
+    #查找笔记
     def find_note
       client = get_client
       note_store = client.note_store
@@ -47,6 +50,7 @@ module GeekNote
       end
     end
 
+    #列出标签
     def list_tags
       client = get_client
       note_store = client.note_store
@@ -57,19 +61,27 @@ module GeekNote
       end
     end
 
+    #帐号信息
     def who_am_i
-      auth_token = "S=s1:U=840c1:E=148e577e596:C=1418dc6b999:P=1cd:A=en-devtoken:V=2:H=f597a57e759dfaba5e319931fcad97a2"
-      client = EvernoteOAuth::Client.new(token: @@auth_token)
+      client = get_client
       user_store = client.user_store
       puts "hello,#{user_store.getUser.username}"  
     end
 
+    def about
+      client = EvernoteOAuth::Client.new(token: @@auth_token)
+      user_store = client.user_store
+      puts "Hi I am the developer #{user_store.getUser.username}"  
+    end
+
+    #登录
     def login
       print "What's your evernote sandbox account?"
       gets_account = gets.chomp()
       print "And the password?"
       gets_password = gets.chomp()
     
+      #模拟网页端的登录
       begin
         client = get_client
         callback_url = "http://javaer.me"
@@ -102,6 +114,7 @@ module GeekNote
       end
     end
 
+    #登出
     def logout
       print "are you sure?(yes/no)"
       gets_answer = gets.chomp()
@@ -113,6 +126,7 @@ module GeekNote
 
     private
 
+    #从配置文件中读取token
     def get_token 
       file = File.new(Dir.home+"/.geeknote", "r")
       token = file.gets
@@ -122,6 +136,7 @@ module GeekNote
 
     def get_client
       client = EvernoteOAuth::Client.new(token: get_token, consumer_key:"mlc880926-4220", consumer_secret:"e95f2e2559cd8ce3", sandbox: true)
+      #geek note 项目的用户名密码
     end
 
   end

@@ -52,6 +52,14 @@ command :whoami do |c|
   end
 end
 
+desc 'about'
+arg_name ''
+command :about do |c|
+  c.action do |global_options,options,args|
+    GeekNote::Client.new.about
+  end
+end
+
 desc 'logout your evernote account'
 arg_name ''
 command :logout do |c|
