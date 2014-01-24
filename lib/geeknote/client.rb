@@ -36,12 +36,12 @@ module GeekNote
       client = get_client
       note_store = client.note_store
       notebooks = note_store.listNotebooks
-      defaultNotebook = notebooks.first
+      defaultNotebook = notebooks.first #第一本笔记本就是默认笔记本......
       puts "your default notebook is #{defaultNotebook.name}"
       noteFilter = Evernote::EDAM::NoteStore::NoteFilter.new(:notebookGuid => defaultNotebook.guid)
       begin
         puts "these are notes in your default notebook ......"
-        noteList = note_store.findNotes(get_token,noteFilter,0,10)
+        noteList = note_store.findNotes(get_token,noteFilter,0,10) #只取10本
         noteList.notes.each do |note|
           puts note.title
         end
@@ -61,13 +61,14 @@ module GeekNote
       end
     end
 
-    #帐号信息
+    #帐号信息(用户信息)
     def who_am_i
       client = get_client
       user_store = client.user_store
       puts "hello,#{user_store.getUser.username}"  
     end
 
+    #关于(开发者)
     def about
       client = EvernoteOAuth::Client.new(token: @@auth_token)
       user_store = client.user_store
@@ -102,7 +103,7 @@ module GeekNote
         verfiy_code = str[1]
         final_token = request_token.get_access_token(:oauth_verifier => verfiy_code)
       
-        customer_client = EvernoteOAuth::Client.new(token: final_token.token, consumer_key:"mlc880926-8889", consumer_secret:"a298b6c359007305", sandbox: true)
+        customer_client = get_client 
       
         note_store = customer_client.note_store
         notebooks = note_store.listNotebooks

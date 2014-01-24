@@ -26,4 +26,5 @@ lib/geeknote.rb
   s.add_runtime_dependency('gli','2.8.0')
   s.add_runtime_dependency('mechanize')
   s.add_runtime_dependency('evernote_oauth')
+  s.add_runtime_dependency('netrc')
 end

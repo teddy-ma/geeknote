@@ -4,5 +4,6 @@ require 'geeknote/http'
 require 'evernote_oauth'
 require 'mechanize'
 require 'tempfile'
+require 'netrc'
 # Add requires for other files you add to your project here, so
 # you just need to require this one file in your bin file
