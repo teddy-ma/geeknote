@@ -3,6 +3,9 @@ module GeekNote
     
     @@evernoteHost = "sandbox.evernote.com" #www.evernote.com for production
     @@auth_token = "S=s1:U=840c1:E=148e577e596:C=1418dc6b999:P=1cd:A=en-devtoken:V=2:H=f597a57e759dfaba5e319931fcad97a2" # my developer account auth token
+    @@consumer_key = "mlc880926-4220"
+    @@consumer_secret = "e95f2e2559cd8ce3"
+    @@netrc_domain = "geeknote.javaer.me"
 
     #列出所有的笔记本
     def list_notebooks      
@@ -102,13 +105,10 @@ module GeekNote
         str = page.uri.to_s.split('oauth_verifier=')
         verfiy_code = str[1]
         final_token = request_token.get_access_token(:oauth_verifier => verfiy_code)
-      
-        customer_client = get_client 
-      
-        note_store = customer_client.note_store
-        notebooks = note_store.listNotebooks
-
-        File.open(Dir.home+"/.geeknote", 'w') { |file| file.write(final_token.token) }
+        puts final_token
+        n = Netrc.read
+        n[@@netrc_domain] = login_form.username, final_token.token
+        n.save
         puts "awesome, you have login success"
       rescue => err
         puts "something wrong, maybe you got the wrong account or password"
@@ -120,7 +120,9 @@ module GeekNote
       print "are you sure?(yes/no)"
       gets_answer = gets.chomp()
       if "yes" == gets_answer
-        File.delete(Dir.home+"/.geeknote")
+        n = Netrc.read
+        n.delete @@netrc_domain
+        n.save
         puts "awesome, you have logout success"
       end
     end
@@ -129,15 +131,13 @@ module GeekNote
 
     #从配置文件中读取token
     def get_token 
-      file = File.new(Dir.home+"/.geeknote", "r")
-      token = file.gets
-      file.close
+      n = Netrc.read
+      user, token = n[@@netrc_domain]
       return token
     end
 
     def get_client
-      client = EvernoteOAuth::Client.new(token: get_token, consumer_key:"mlc880926-4220", consumer_secret:"e95f2e2559cd8ce3", sandbox: true)
-      #geek note 项目的用户名密码
+      client = EvernoteOAuth::Client.new(token: get_token, consumer_key: @@consumer_key, consumer_secret: @@consumer_secret, sandbox: true)
     end
 
   end
