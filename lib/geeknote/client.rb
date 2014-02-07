@@ -129,16 +129,16 @@ module GeekNote
 
     private
 
-    #从配置文件中读取token
-    def get_token 
-      n = Netrc.read
-      user, token = n[@@netrc_domain]
-      return token
-    end
+      #从配置文件中读取token
+      def get_token 
+        n = Netrc.read
+        user, token = n[@@netrc_domain]
+        return token
+      end
 
-    def get_client
-      client = EvernoteOAuth::Client.new(token: get_token, consumer_key: @@consumer_key, consumer_secret: @@consumer_secret, sandbox: true)
-    end
+      def get_client
+        client = EvernoteOAuth::Client.new(token: get_token, consumer_key: @@consumer_key, consumer_secret: @@consumer_secret, sandbox: true)
+      end
 
   end
 end

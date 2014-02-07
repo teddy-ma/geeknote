@@ -30,14 +30,10 @@ command :login do |c|
   c.flag :u
 
   c.desc '-p password'
-  c.default_value 'default'
   c.flag :p
   c.action do |global_options,options,args|
 
-    # Your command logic here
-     
-    # If you have any errors, just raise them
-    # raise "that command made no sense"
+    #can pass username and password
 
     puts "login command ran"
     GeekNote::Client.new.login
