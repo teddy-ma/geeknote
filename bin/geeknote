@@ -15,14 +15,6 @@ program_desc 'yet another evernote command line client'
 
 version GeekNote::VERSION
 
-desc 'Describe some switch here'
-switch [:s,:switch]
-
-desc 'Describe some flag here'
-default_value 'the default'
-arg_name 'The name of the argument'
-flag [:f,:flagname]
-
 desc 'login evernote'
 arg_name ''
 command :login do |c|
@@ -32,10 +24,6 @@ command :login do |c|
   c.desc '-p password'
   c.flag :p
   c.action do |global_options,options,args|
-
-    #can pass username and password
-
-    puts "login command ran"
     GeekNote::Client.new.login
   end
 end
@@ -60,7 +48,6 @@ desc 'logout your evernote account'
 arg_name ''
 command :logout do |c|
   c.action do |global_options,options,args|
-    puts "logout command ran"
     GeekNote::Client.new.logout
   end
 end
@@ -75,19 +62,19 @@ command :settings do |c|
   end
 end
 
-desc 'Describe note here'
-arg_name 'Describe arguments to note here'
+desc 'do somthing about note'
 command :note do |c|
-  c.action do |global_options,options,args|
-    puts "note command ran"
-  end
+  # c.action do |global_options,options,args|
+  #   puts "note command ran"
+  # end
 
+  c.desc 'create a note'
   c.command :create do |note| 
 
     note.desc '-t title'
-    note.desc '-c content'
+    # note.desc '-c content'
     note.flag :t
-    note.flag :c
+    # note.flag :c
 
     note.action do |global_options,options,args|
       puts "create note"
@@ -95,6 +82,7 @@ command :note do |c|
     end
   end
 
+  c.desc 'find a note'
   c.command :find do |note|
     note.action do 
       puts "find note"
@@ -102,18 +90,21 @@ command :note do |c|
     end
   end
 
+  c.desc 'show a note'
   c.command :show do |note|
     note.action do 
       puts "Show note"
     end
   end
 
+  c.desc 'edit a note'
   c.command :edit do |note|
     note.action do 
       puts "Edit note"
     end
   end
 
+  c.desc 'remove a note'
   c.command :remove do |note|
     note.action do 
       puts "Remove note"
@@ -171,23 +162,13 @@ command :tag do |c|
 end
 
 pre do |global,command,options,args|
-  # Pre logic here
-  # Return true to proceed; false to abort and not call the
-  # chosen command
-  # Use skips_pre before a command to skip this block
-  # on that command only
   true
 end
 
 post do |global,command,options,args|
-  # Post logic here
-  # Use skips_post before a command to skip this
-  # block on that command only
 end
 
 on_error do |exception|
-  # Error logic here
-  # return false to skip default error handling
   true
 end
 
